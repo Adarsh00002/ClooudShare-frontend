@@ -21,7 +21,7 @@ const PublicFileView=()=>{
             setloading(true);
             try{
                 const res=await axios.get(
-                    `http://localhost:8080/api/v1.0/files/public/${fileId}`
+                    `https://clooudsharebackend-2.onrender.com/api/v1.0/files/public/${fileId}`
                 );
 
                 setFile(res.data);
@@ -44,7 +44,7 @@ const PublicFileView=()=>{
     const handleDownload=async()=>{
         try{
             const response=await axios.get(
-                `http://localhost:8080/api/v1.0/files/download/${fileId}`,
+                `https://clooudsharebackend-2.onrender.com/api/v1.0/files/download/${fileId}`,
                 {
                     responseType:"blob",
                 }
