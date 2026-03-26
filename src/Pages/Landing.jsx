@@ -25,23 +25,23 @@ const Landing=()=>{
             <div className="landing-page bg-gradient-to-b from-gray-50 to-gray-100">
                
 
-                {/*HeoSection */}
+               
                 <HeroSection openSignIn={openSignIn} openSignUp={openSignUp} />
 
-                {/* Features Section  */}
+               
                     <FeaturesSection feature={features}/>
 
-                {/* Pricing section  */}
+                
             
                  <PricingSection  pricingPlans={pricingPlans} openSignUp={openSignUp} />
 
-                {/* Testimonials sections  */}
+               
                     <TestimonialsSection  testimonial={testimonials}/>
 
-                {/* CTA Section  */}
+               
                 <CTASection  openSignUp={openSignUp}/>
 
-                {/*  Footer section */}
+              
                     <FooterSection />
 
                 

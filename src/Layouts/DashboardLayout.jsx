@@ -9,13 +9,13 @@ const DashboardLayout=({children,activeMenu}) =>{
 
     return(
         <div>
-           {/* Navbar component goes here  */}
+          
           <Navbar  activeMenu={activeMenu}/>
            {user && (
             <div className="flex">
 
                 <div className="max-[1080px]:hidden">
-                    {/*Side Menu goes here  */}
+                   
                     <SideMenu activeMenue={activeMenu} />
 
                 </div>

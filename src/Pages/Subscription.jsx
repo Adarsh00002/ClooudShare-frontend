@@ -27,7 +27,7 @@ const Subscription = () => {
     setOpen(false);
     try {
       const token = await getToken();
-
+     
       await axios.post(
         apiEndpoints.UPDATE_CREDIT,
         {
@@ -51,10 +51,10 @@ const Subscription = () => {
 
   return (
     <DashboardLayout activeMenu="Subscription">
-      {/* 🔥 BIGGER CONTAINER */}
+     
       <div className="max-w-7xl mx-auto px-8 py-10">
 
-        {/* Current Credits */}
+        
         <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-3xl p-10 shadow-xl mb-12 flex items-center justify-between">
           <div>
             <p className="text-xl font-medium opacity-90">
@@ -71,7 +71,7 @@ const Subscription = () => {
           </div>
         </div>
 
-        {/* Subscription Plans */}
+        
         <div className="grid md:grid-cols-3 gap-10">
           {pricingPlans.map((p, index) => (
             <div
@@ -125,7 +125,7 @@ const Subscription = () => {
         </div>
       </div>
 
-      {/* Payment Modal */}
+      
       <RazorpayCloneModal
         open={open}
         amount={plan?.amount}

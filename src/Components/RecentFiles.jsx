@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { apiEndpoints } from "../Util/EndPoint";
 import { useState } from "react";
-import LinkShareModal from "./LinkShareModal"; // ✅ IMPORTANT
+import LinkShareModal from "./LinkShareModal";
 
 const getFileIcon = (file) => {
   const ext = file.name?.split(".").pop()?.toLowerCase();
@@ -40,21 +40,21 @@ const getFileIcon = (file) => {
 const RecentFiles = ({ files = [], refreshFiles }) => {
   const { getToken } = useAuth();
 
-  // ✅ FIXED STATE NAME
+ 
   const [shareModal, setShareModal] = useState({
     isOpen: false,
     fileId: null,
     link: "",
   });
 
-  // ===== DOWNLOAD =====
+ 
   const handleDownload = async (file) => {
     try {
       const response = await fetch(file.fileLocation);
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
 
-      // Download
+     
       const link = document.createElement("a");
       link.href = blobUrl;
       link.download = file.name;
@@ -62,7 +62,7 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
       link.click();
       link.remove();
 
-      // Open after download
+      
       window.open(blobUrl, "_blank");
 
       setTimeout(() => {
@@ -73,7 +73,7 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
     }
   };
 
-  // ===== TOGGLE PUBLIC =====
+ 
   const togglePublic = async (file) => {
     try {
       const token = await getToken();
@@ -90,7 +90,7 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
     }
   };
 
-  // ===== DELETE =====
+ 
   const handleDelete = async (fileId) => {
     try {
       const token = await getToken();
@@ -104,16 +104,17 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
     }
   };
 
-  // ===== OPEN SHARE MODAL =====
-  const openShareModal = (fileId) => {
-    const link = `${window.location.origin}/file/${fileId}`;
-    setShareModal({
-      isOpen: true,
-      fileId,
-      link,
-    });
-  };
+ 
+ const openShareModel = (file) => {
 
+  const link = file.fileLocation;
+
+  setShareModal({
+    isOpen: true,
+    fileId: file.id,
+    link: link
+  });
+};
   if (files.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow p-10 text-center">
@@ -182,7 +183,7 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
 
                     {file.isPublic && (
                       <button
-                        onClick={() => openShareModal(file.id)}
+                        onClick={() => openShareModel(file)}
                         className="flex items-center gap-1 text-blue-600"
                       >
                         <Copy size={14} />

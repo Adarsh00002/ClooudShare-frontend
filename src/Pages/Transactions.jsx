@@ -3,13 +3,14 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import { useAuth } from "@clerk/clerk-react";
 import { AlertCircle, Loader2, Receipt } from "lucide-react";
 import axios from "axios";
+import { apiEndpoints } from "../Util/EndPoint";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // 🔥 Pagination state
+  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
@@ -22,7 +23,7 @@ const Transactions = () => {
         const token = await getToken();
 
         const response = await axios.get(
-          "http://localhost:8080/api/v1.0/transactions",
+          apiEndpoints.FETCH_TRANSATION,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -45,7 +46,7 @@ const Transactions = () => {
     fetchTransaction();
   }, [getToken]);
 
-  // 🔹 Format date
+ 
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -57,10 +58,10 @@ const Transactions = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  // 🔹 Format amount
+
   const formatAmount = (amount) => `₹${amount}`;
 
-  // 🔹 Pagination logic
+ 
   const totalPages = Math.ceil(transactions.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -69,13 +70,13 @@ const Transactions = () => {
   return (
     <DashboardLayout activeMenu="Transactions">
       <div className="p-6">
-        {/* Header */}
+      
         <div className="flex items-center gap-2 mb-6">
           <Receipt className="text-purple-600" />
           <h1 className="text-2xl font-bold">Transaction History</h1>
         </div>
 
-        {/* Error */}
+      
         {error && (
           <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg flex items-center gap-2">
             <AlertCircle size={20} />
@@ -83,14 +84,14 @@ const Transactions = () => {
           </div>
         )}
 
-        {/* Loading */}
+       
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="animate-spin mr-2" size={24} />
             <span>Loading transactions...</span>
           </div>
         ) : transactions.length === 0 ? (
-          // Empty State
+         
           <div className="bg-gray-50 p-8 rounded-lg text-center">
             <Receipt size={48} className="mx-auto mb-4 text-gray-400" />
             <h3 className="text-lg font-medium text-gray-700 mb-2">
@@ -103,7 +104,7 @@ const Transactions = () => {
           </div>
         ) : (
           <>
-            {/* Table */}
+           
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white rounded-lg overflow-hidden shadow border">
                 <thead className="bg-gray-50">
@@ -163,7 +164,7 @@ const Transactions = () => {
               </table>
             </div>
 
-            {/* Pagination Buttons */}
+            
             <div className="flex justify-end items-center gap-4 mt-6">
               <button
                 disabled={currentPage === 1}

@@ -29,7 +29,7 @@ const MyFiles = () => {
         fileId: null
     });
 
-    // Pagination state
+  
     const [currentPage, setCurrentPage] = useState(1);
     const filesPerPage = 12;
 
@@ -80,7 +80,7 @@ const MyFiles = () => {
 
         const blobUrl = window.URL.createObjectURL(blob);
 
-        // 1️⃣ Download
+       
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = file.name;
@@ -88,7 +88,7 @@ const MyFiles = () => {
         link.click();
         link.remove();
 
-        // 2️⃣ Open in new tab
+       
         window.open(blobUrl, "_blank");
 
         setTimeout(() => {
@@ -119,11 +119,16 @@ const MyFiles = () => {
     const openDeleteConfirmation = (fileId) => setDeleteConfirmation({ isOpen: true, fileId });
     const closeDeleteConfirmation = () => setDeleteConfirmation({ isOpen: false, fileId: null });
 
-    const openShareModel = (fileId) => {
-        const link = `${window.location.origin}/file/${fileId}`;
-        setshareModel({ isOpen: true, fileId, link });
-    };
+  const openShareModel = (file) => {
+   
+    const link = file.fileLocation;
 
+    setshareModel({
+        isOpen: true,
+        fileId: file.id,
+        link: link
+    });
+};
     const getFileIcon = (file) => {
         const extension = file.name.split('.').pop().toLowerCase();
         if (['jpg', 'jpeg', 'png', 'gif', 'svg'].includes(extension)) return <Image size={24} className="text-purple-500" />;
@@ -133,7 +138,7 @@ const MyFiles = () => {
         return <File size={24} className="text-gray-500" />;
     };
 
-    // Pagination logic
+   
     const totalPages = Math.ceil(files.length / filesPerPage);
     const startIndex = (currentPage - 1) * filesPerPage;
     const endIndex = startIndex + filesPerPage;
@@ -216,7 +221,7 @@ const MyFiles = () => {
                                                     )}
                                                 </button>
                                                 {file.isPublic && (
-                                                    <button onClick={() => openShareModel(file.id)} className="text-blue-600 flex items-center gap-1">
+                                                    <button onClick={() => openShareModel(file)} className="text-blue-600 flex items-center gap-1">
                                                         <Copy size={14} /> Share
                                                         
                                                     </button>
@@ -241,7 +246,7 @@ const MyFiles = () => {
                             </tbody>
                         </table>
 
-                        {/* Pagination Buttons same as Transactions */}
+                       
                         <div className="flex justify-end items-center gap-4 mt-6">
                             <button
                                 disabled={currentPage === 1}

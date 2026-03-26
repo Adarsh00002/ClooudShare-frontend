@@ -1,13 +1,13 @@
 import { useAuth } from "@clerk/clerk-react";
 import { createContext, useCallback, useEffect, useState } from "react";
- import axios from "axios"; // Commented because not used right now
+ import axios from "axios"; 
  import toast from "react-hot-toast";
  import { apiEndpoints } from "../Util/EndPoint";
 
 export const userCreditContext = createContext();
 
 const UserCreditProvider = ({ children }) => {
-  const [credits, setCredits] = useState(5); // Default value 5 rakhi hai testing ke liye
+  const [credits, setCredits] = useState(5); 
   const [loading, setLoading] = useState(false);
   const { getToken, isSignedIn } = useAuth();
 
@@ -38,7 +38,7 @@ const UserCreditProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-    // ----------------------------------------
+   
   
   }, [getToken, isSignedIn]);
 

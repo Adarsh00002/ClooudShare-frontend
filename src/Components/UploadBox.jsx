@@ -10,7 +10,7 @@ const UploadBox = ({
   isUploadDisable,
 }) => {
   return (
-    // 'w-full' aur 'px-4' add kiya taaki mobile par chipke nahi
+   
     <div className="w-full max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-10">
       
       {/* Header */}
@@ -23,7 +23,7 @@ const UploadBox = ({
         </p>
       </div>
 
-      {/* Drag & Drop Area - Height responsive ki gayi hai (h-48 on mobile) */}
+     
       <label
         htmlFor="fileUpload"
         className="relative flex flex-col items-center justify-center w-full h-48 md:h-64
@@ -49,7 +49,7 @@ const UploadBox = ({
         />
       </label>
 
-      {/* File List - Overflow handle kiya gaya hai */}
+     
       {files.length > 0 && (
         <div className="mt-6 space-y-3 max-h-60 overflow-y-auto">
           {files.map((file, index) => (
@@ -80,10 +80,10 @@ const UploadBox = ({
         </div>
       )}
 
-      {/* Footer - Yahan spacing fix ki gayi hai */}
+      
       <div className="mt-8 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4">
         
-        {/* Credits */}
+        
         <div className="flex items-center gap-2 text-sm md:text-base">
           {remainingCredits > 0 ? (
             <>
@@ -100,7 +100,7 @@ const UploadBox = ({
           )}
         </div>
 
-        {/* Upload Button */}
+      
         <button
           type="button"
           onClick={onUpload}

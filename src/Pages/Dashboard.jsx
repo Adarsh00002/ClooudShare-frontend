@@ -85,7 +85,7 @@ const Dashboard = () => {
             setMessage("Uploaded successfully!");
             setMessageType('success');
             setUploadFiles([]);
-            fetchRecentFiles(); // Refresh list after upload
+            fetchRecentFiles(); 
             if (fetchUserCredits) fetchUserCredits();
         } catch (error) {
             setMessage("Upload failed");

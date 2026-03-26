@@ -1,6 +1,6 @@
 import { SignedIn, SignIn, UserButton } from "@clerk/clerk-react";
 import { Menu, Share2, Wallet, X } from "lucide-react"; 
-import { Link } from "react-router-dom";   // <-- FIXED
+import { Link } from "react-router-dom"; 
 import { useContext, useEffect, useState } from "react";
 import SideMenu from "./SideManu";
 import CreditsDisplay from "./CreaditsDisplay";
@@ -38,7 +38,7 @@ useEffect(()=>{
                 <SignedIn>
                     <div className="flex items-center justify-center gap-4">
                         
-                        {/* FIXED ROUTER LINK */}
+                        
                         <Link to="/subscription">
                             <CreditsDisplay credits={credits} />
                         </Link>

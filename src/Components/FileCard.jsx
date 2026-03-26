@@ -22,7 +22,7 @@ const FileCard = ({
 }) => {
   const [showActions, setShowActions] = useState(false);
 
-  // ✅ FIX: extension file.name se nikalna
+  
   const getFileIcon = () => {
     const ext = file?.name?.split(".").pop()?.toLowerCase();
 
@@ -63,7 +63,7 @@ const FileCard = ({
   return (
     <div
       onMouseEnter={() => setShowActions(true)}
-      onMouseLeave={() => setShowActions(false)}   // ✅ FIX
+      onMouseLeave={() => setShowActions(false)}  
       className="relative group overflow-hidden rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
     >
       {/* File Preview */}
@@ -109,7 +109,7 @@ const FileCard = ({
         <div className="flex gap-3">
           {file.isPublic && (
             <button
-              onClick={() => onShareLink(file.id)}
+              onClick={() => onShareLink(file)}
               title="Share"
               className="p-2 bg-white rounded-full text-purple-600 hover:text-purple-800"
             >
@@ -131,8 +131,6 @@ const FileCard = ({
             </a>
           )}
 
-
-  
 
           <button
             onClick={() => onDownload(file)}

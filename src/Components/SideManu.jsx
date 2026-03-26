@@ -1,17 +1,18 @@
 import { useUser } from "@clerk/clerk-react";
 import { User } from "lucide-react";
 import { SIDE_MENU_DATA } from "../assets/data";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SideMenu = ({ activeMenu }) => {
   const { user } = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     
     <div className="w-64 h-[calc(100vh-61px)] bg-white border-r border-gray-200/50 sticky top-[61px] z-20  ">
       
-      {/* User Profile */}
+     
       <div className="flex flex-col items-center justify-center gap-3 mb-7 mt-15 lg:mt-30 ">
         {user ? (
           <img
@@ -36,7 +37,7 @@ const SideMenu = ({ activeMenu }) => {
           className={`w-full flex items-center gap-4 text-[15px] py-3 px-6 rounded-lg mb-3 
             transition-all duration-200 cursor-pointer 
             ${
-              activeMenu === item.label
+              location.pathname === item.path
                 ? "bg-purple-500 text-white font-medium shadow-md hover:bg-purple-600"
                 : "hover:bg-gray-100"
             }`}

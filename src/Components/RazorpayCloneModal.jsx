@@ -12,7 +12,7 @@ const RazorpayCloneModal = ({ open, amount, onClose, onSuccess }) => {
     setTimeout(() => {
       setLoading(false);
 
-      // 🔥 FAKE PAYMENT PAYLOAD (LIKE RAZORPAY)
+      
       onSuccess({
         paymentId: "FAKE_PAY_" + Date.now(),
         amount: amount,
