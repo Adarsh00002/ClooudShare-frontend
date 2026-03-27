@@ -17,6 +17,7 @@ const MyFiles = () => {
     const [viewMode, setViewMode] = useState("list");
     const { getToken } = useAuth();
     const navigate = useNavigate();
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const [shareModel, setshareModel] = useState({
         isOpen: false,
@@ -54,10 +55,11 @@ const MyFiles = () => {
 
     const handleDelete = async () => {
         const fileId = DeleteConfirmation.fileId;
-        console.log(DeleteConfirmation.fileId);
+         if (!fileId) return;
         if (!fileId) return;
 
         try {
+            setIsDeleting(true);
             const token = await getToken();
             const response = await axios.delete(apiEndpoints.DELETE_FILE(fileId), {
                 headers: { Authorization: `Bearer ${token}` }
@@ -66,9 +68,12 @@ const MyFiles = () => {
                 setFiles(prev => prev.filter((file) => file.id !== fileId));
                 closeDeleteConfirmation();
                 toast.success("File deleted successfully");
+                closeDeleteConfirmation();
             }
         } catch (error) {
             toast.error('Error deleting file');
+        }finally{
+             setIsDeleting(false);
         }
     };
 
@@ -291,6 +296,7 @@ const MyFiles = () => {
                   confirmText="Delete"
                   onConfirm={handleDelete}
                   confirmationButtonClose="bg-red-600 hover:bg-red-700"
+                  loading={isDeleting}
                 />
 
                 <LinkShareModal

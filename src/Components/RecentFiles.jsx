@@ -10,6 +10,7 @@ import {
   Music,
   FileText,
   Lock,
+  Loader2,
 } from "lucide-react";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
@@ -37,10 +38,12 @@ const getFileIcon = (file) => {
   return <File size={22} className="text-gray-500" />;
 };
 
+
+
 const RecentFiles = ({ files = [], refreshFiles }) => {
   const { getToken } = useAuth();
 
- 
+ const [deletingId, setDeletingId] = useState(null);
   const [shareModal, setShareModal] = useState({
     isOpen: false,
     fileId: null,
@@ -93,6 +96,7 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
  
   const handleDelete = async (fileId) => {
     try {
+       setDeletingId(fileId);
       const token = await getToken();
       await axios.delete(apiEndpoints.DELETE_FILE(fileId), {
         headers: { Authorization: `Bearer ${token}` },
@@ -101,6 +105,9 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
       refreshFiles?.();
     } catch {
       toast.error("Delete failed");
+    }
+    finally{
+      setDeletingId(null);
     }
   };
 
@@ -200,11 +207,18 @@ const RecentFiles = ({ files = [], refreshFiles }) => {
                       onClick={() => handleDownload(file)}
                       className="cursor-pointer text-gray-500 hover:text-green-600"
                     />
-                    <Trash2
-                      size={18}
-                      onClick={() => handleDelete(file.id)}
-                      className="cursor-pointer text-gray-500 hover:text-red-600"
-                    />
+                    {deletingId === file.id ? (
+  <Loader2
+    size={18}
+    className="animate-spin text-red-500"
+  />
+) : (
+  <Trash2
+    size={18}
+    onClick={() => handleDelete(file.id)}
+    className="cursor-pointer text-gray-500 hover:text-red-600"
+  />
+)}
                     {file.isPublic && (
                       <Eye
                         size={18}

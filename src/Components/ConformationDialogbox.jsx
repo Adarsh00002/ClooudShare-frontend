@@ -1,3 +1,5 @@
+import { Loader2 } from "lucide-react";
+
 const ConformationDialogBox = ({
   isOpen,
   onClose,
@@ -7,6 +9,7 @@ const ConformationDialogBox = ({
   cancelText = "Cancel",
   onConfirm,
   confirmationButtonClose = "bg-red-600 hover:bg-red-700",
+  loading
 }) => {
   if (!isOpen) return null;
 
@@ -43,15 +46,17 @@ const ConformationDialogBox = ({
             {cancelText}
           </button>
 
-          <button
-            onClick={() => {
-              onConfirm();
-              onClose();
-            }}
-            className={`px-4 py-2 rounded-md text-sm text-white transition ${confirmationButtonClose}`}
-          >
-            {confirmText}
-          </button>
+         <button
+  onClick={onConfirm}
+  disabled={loading}
+  className={`px-4 py-2 rounded-md text-sm text-white transition flex items-center justify-center gap-2 ${confirmationButtonClose}`}
+>
+  {loading ? (
+    <Loader2 className="animate-spin" size={18} />
+  ) : (
+    confirmText
+  )}
+</button>
         </div>
       </div>
     </div>
