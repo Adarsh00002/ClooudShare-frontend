@@ -64,7 +64,13 @@ const Dashboard = () => {
     };
 
     const handleUpload = async () => {
-        if (uploadFiles.length === 0) return;
+        if (credits <= 0) {
+        setMessage("No credits left. Please upgrade.");
+        setMessageType("error");
+        return;
+    }
+
+         if (uploadFiles.length === 0 || credits <= 0) return;
 
         setUploading(true);
         setMessage("Uploading...");
@@ -72,6 +78,7 @@ const Dashboard = () => {
 
         try {
             const token = await getToken();
+            console.log(token);
             const formData = new FormData();
             uploadFiles.forEach(file => formData.append('files', file));
 
@@ -118,6 +125,7 @@ const Dashboard = () => {
                             uploading={uploading}
                             onRemoveFile={handleRemoveFiles}
                             remainingCredits={credits}
+                            isUploadDisable={uploading || credits <= 0 || uploadFiles.length === 0}
                         />
                     </div>
 
