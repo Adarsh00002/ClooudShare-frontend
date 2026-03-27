@@ -1,7 +1,4 @@
-const BASE_URL = "https://cloouds0arebackend-2.onrender.com/api/v1.0";
-
-//https://clooudsharebackend-2.onrender.com/api/v1.0/webhooks/clerk
-//const BASE_URL = "http://localhost:8080/api/v1.0";
+const BASE_URL = "https://clooudsharebackend-2.onrender.com/api/v1.0";
 
 export const apiEndpoints = {
     
